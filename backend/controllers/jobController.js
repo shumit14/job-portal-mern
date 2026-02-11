@@ -62,12 +62,25 @@ exports.getJobs = async (req, res) => {
 // FIND JOB BY ID
 
 exports.getJobById = async (req,res)=>{
-    try {
-        const jobById = await Job.findById(req.params.id)
-        res.json(jobById)
-    } catch (error) {
-        res.status(500).json({message : "Job Id is not Found "})
+   try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid Job ID" });
     }
+
+    const job = await Job.findById(id);
+
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    res.status(200).json(job);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
 }
 
 //GET MY JOB 
