@@ -1,4 +1,6 @@
 const Job = require('../models/Job')
+const mongoose = require("mongoose");
+
 
 // CREATE JOB (ADMIN)
 
