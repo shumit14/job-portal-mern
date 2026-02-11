@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL : "http://localhost:5000/api"
+    baseURL : "https://job-portal-mern-3vj3.onrender.com/api"
 })
 
 axiosInstance.interceptors.request.use(
