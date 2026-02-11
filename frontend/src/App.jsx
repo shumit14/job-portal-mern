@@ -1,5 +1,5 @@
 import { Navigate, Route, Router, Routes } from "react-router-dom";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import Jobs from "./pages/Jobs";
