@@ -6,7 +6,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'resumes',
-    resource_type: 'raw', 
+    resource_type: 'auto', 
     format: async (req, file) => 'pdf'
   }
 })
