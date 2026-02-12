@@ -5,7 +5,7 @@ const cloudinary = require('../utils/cloudinary')
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: 'resumes',
+    folder: 'resume',
     resource_type: 'image', 
     allowed_formats: ['pdf']
   }
