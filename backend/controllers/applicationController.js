@@ -28,7 +28,7 @@ exports.applyToJob = async (req, res) => {
     const application = await Application.create({
       job: jobId,
       applicant: userId,
-      resumeUrl : `/uploads/resumes/${req.file.filename}`
+      resumeUrl : req.file.path
     });
 
     res.status(201).json({
