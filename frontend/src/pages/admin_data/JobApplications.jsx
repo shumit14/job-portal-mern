@@ -50,7 +50,7 @@ export default function JobApplications() {
                     </p>
                     {app.resumeUrl && (
                         <a
-                            href={`http://localhost:5000${app.resumeUrl}`}
+                            href={app.resumeUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 underline block mt-2"
