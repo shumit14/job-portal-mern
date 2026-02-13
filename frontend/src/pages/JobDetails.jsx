@@ -75,7 +75,7 @@ const handelApplyJob = async () => {
               : "bg-green-600 hover:bg-green-700"
             }`}
         >
-          {applied ? "Already Applied" : "Apply Job"}
+          {applied ? "Applied Successfully" : "Apply Job"}
         </button>
       )}
 
