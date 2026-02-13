@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchJobApi, fetchJobApiById } from "./jobApi";
-import { list } from "postcss";
+
 
 export const fetchJob = createAsyncThunk(
     '/jobs/fetchJobs',

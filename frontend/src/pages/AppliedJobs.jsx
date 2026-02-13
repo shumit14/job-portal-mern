@@ -3,45 +3,107 @@ import { getUserApplicationApi } from "../features/auth/jobs/jobApi";
 import { Link } from "react-router-dom";
 
 export default function AppliedJobs() {
-    const [apps, setApps] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [apps, setApps] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        getUserApplicationApi()
-            .then(setApps)
-            .finally(() => setLoading(false)); 
-    }, []);
+  const statusColor = {
+    Applied: "text-gray-500",
+    Reviewed: "text-blue-600",
+    Rejected: "text-red-600",
+  };
 
-    if (loading) return <p className="p-6">Loading...</p>;
+  useEffect(() => {
+    const loadApplications = async () => {
+      try {
+        const data = await getUserApplicationApi();
+        setApps(data);
+      } catch (error) {
+        alert("Failed to load applied jobs");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (apps.length === 0)
-        return <p className="p-6">No applied jobs yet.</p>;
+    loadApplications();
+  }, []);
 
+  if (loading) {
     return (
-        <div className="p-6 space-y-4">
-            <h1 className="text-2xl font-bold">Applied Jobs</h1>
-
-            {apps.map((app) => (
-                <div
-                    key={app._id}
-                    className="border p-4 rounded shadow"
-                >
-                    <h2 className="text-xl font-semibold">
-                        {app.job.title}
-                    </h2>
-                    <p>{app.job.company}</p>
-                    <p className="text-sm text-gray-600">
-                        Status: {app.status}
-                    </p>
-
-                    <Link
-                        to={`/jobs/${app.job._id}`}
-                        className="text-blue-600 underline mt-2 inline-block"
-                    >
-                        View Job
-                    </Link>
-                </div>
-            ))}
-        </div>
+      <div className="flex justify-center py-32">
+        <p className="text-gray-500 text-lg">Loading applied jobs...</p>
+      </div>
     );
+  }
+
+  if (apps.length === 0) {
+    return (
+      <div className="flex justify-center py-32">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-gray-700">
+            No Applications Yet
+          </h2>
+          <p className="text-gray-500 mt-2">
+            You haven’t applied to any jobs.
+          </p>
+          <Link
+            to="/jobs"
+            className="inline-block mt-6 bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition"
+          >
+            Browse Jobs
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-5xl mx-auto px-6 py-12">
+
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">
+          Applied Jobs
+        </h1>
+        <p className="text-gray-500 mt-2">
+          Track the status of your applications
+        </p>
+      </div>
+
+      <div className="space-y-6">
+        {apps.map((app) => (
+          <div
+            key={app._id}
+            className="bg-white shadow-md rounded-2xl p-6 border border-gray-100"
+          >
+            <div className="flex justify-between items-start flex-wrap gap-4">
+
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800">
+                  {app.job.title}
+                </h2>
+                <p className="text-gray-500">
+                  {app.job.company}
+                </p>
+              </div>
+
+              <span
+                className={`font-semibold ${
+                  statusColor[app.status]
+                }`}
+              >
+                {app.status}
+              </span>
+            </div>
+
+            <Link
+              to={`/jobs/${app.job._id}`}
+              className="inline-block mt-4 text-blue-600 hover:underline"
+            >
+              View Job Details →
+            </Link>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  );
 }

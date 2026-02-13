@@ -26,7 +26,7 @@ exports.getJobs = async (req, res) => {
   try {
     // Query params
     const page = Number(req.query.page) || 1;
-    const limit = 1;
+    const limit = 5;
     const skip = (page - 1) * limit;
 
     // Search query (safe)
@@ -54,11 +54,13 @@ exports.getJobs = async (req, res) => {
       totalPages,
       totalJobs,
     });
+    console.log("Jobs returned:", jobs.length);
   } catch (error) {
     console.error('GET JOBS ERROR:', error);
     res.status(500).json({ message: 'Job not found' });
   }
 };
+
 
 
 // FIND JOB BY ID
