@@ -35,18 +35,20 @@ exports.register = async (req,res)=>{
 // LOGIN
 
 exports.login = async (req,res)=>{
+    
     const {email,password} = req.body
 
     try {
-        const user = await User.findOne({email})
+         const normalizedEmail = email.toLowerCase().trim();
+        const user = await User.findOne({ email: normalizedEmail })
         if(!user){
-            res.status(400).json({message : "invalid Credentials"})
+           return res.status(400).json({message : "invalid Credentials"})
         }
 
         const isMatch = await bcrypt.compare(password,user.password)
 
         if(!isMatch){
-            res.status(400).json({message : "invalid Credentials"})
+           return res.status(400).json({message : "invalid Credentials"})
         }
 
 

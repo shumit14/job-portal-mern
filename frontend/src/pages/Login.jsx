@@ -12,6 +12,8 @@ export default function Login() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { loading, error } = useSelector((state) => state.auth)
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +24,10 @@ export default function Login() {
       }
     })
 
+  }
+
+  const togglePassword = ()=>{
+    setShowPassword(prev=>!prev)
   }
   return (
     <div className="flex min-h-screen items-center justify-center">
@@ -41,13 +47,21 @@ export default function Login() {
         />
 
         <input
-          type="password"
-          placeholder="Password"
-          className="mb-3 w-full rounded border px-3 py-2"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+  type={showPassword ? "text" : "password"}
+  name="password"
+  value={formData.password}
+  onChange={handleChange}
+  className="input"
+  required
+/>
+<button
+  type="button"
+  onMouseDown={() => setShowPassword(true)}
+  onMouseUp={() => setShowPassword(false)}
+  onMouseLeave={() => setShowPassword(false)}
+>
+  <Eye size={20} />
+</button>
 
         {error && (
           <p className="mb-2 text-sm text-red-500">{error}</p>
