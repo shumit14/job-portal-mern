@@ -3,12 +3,14 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary')
 const cloudinary = require('../utils/cloudinary')
 
 const storage = new CloudinaryStorage({
-  cloudinary,
+  cloudinary: cloudinary,
   params: {
-    folder: 'resume',
-    resource_type: 'auto', 
+    folder: "resume",
+    resource_type: "raw",
+    allowed_formats: ["pdf"]
   }
 })
+
 
 const upload = multer({
   storage,
