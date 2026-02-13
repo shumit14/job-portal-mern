@@ -9,6 +9,8 @@ const storage = new CloudinaryStorage({
       folder: "resume",
       resource_type: "raw",
       format: "pdf",
+      type: "upload",   // IMPORTANT
+      access_mode: "public",
       public_id: file.originalname.split('.')[0]
     }
   }
