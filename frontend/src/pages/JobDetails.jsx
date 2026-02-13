@@ -100,7 +100,7 @@ export default function JobDetails() {
       )}
 
       {/* Apply Section */}
-      {user?.role === "user" && (
+      {user?.role === "USER" && (
         <div className="border-t pt-6">
 
           <label className="block text-sm font-medium text-gray-700 mb-2">

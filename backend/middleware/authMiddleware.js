@@ -35,7 +35,7 @@ exports.adminOnly = (req,res,next)=>{
 
 exports.userOnly = (req, res, next) => {
 
-  if (!req.user || req.user.role !== "user") {
+  if (!req.user || req.user.role !== "USER") {
     return res.status(403).json({ message: "Not Allowed" });
   }
 
